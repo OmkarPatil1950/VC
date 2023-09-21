@@ -17,7 +17,7 @@ function Index() {
   const localVideo = useRef();
   const remoteVideo = useRef();
   const localIdInp = doctorId;
-const [remoteIdInp,setRemoteIdInp]=useState(0);
+const [remoteIdInp,setRemoteIdInp]=useState();
 
   const [videoEnabled, setVideoEnabled] = useState(true);
   const [audioEnabled, setAudioEnabled] = useState(true);
@@ -435,6 +435,10 @@ const [remoteIdInp,setRemoteIdInp]=useState(0);
   }
 
   function handleCall() {
+
+
+console.log(remoteIdInp,'remote id in handle call')
+
     if (stompClient) {
       remoteID = remoteIdInp;
       stompClient.send(
