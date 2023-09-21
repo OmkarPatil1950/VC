@@ -17,7 +17,7 @@ function Index() {
   const localVideo = useRef();
   const remoteVideo = useRef();
   const localIdInp = doctorId;
-  const remoteIdInp = patientId;
+const [remoteIdInp,setRemoteIdInp]=useState(0);
 
   const [videoEnabled, setVideoEnabled] = useState(true);
   const [audioEnabled, setAudioEnabled] = useState(true);
@@ -160,7 +160,8 @@ function Index() {
             console.log("Call From: " + call.body);
             console.log("Step - 3");
             remoteID = call.body;
-            remoteIdInp = remoteID;
+            setRemoteIdInp(remoteID);
+            // remoteIdInp = remoteID;
             console.log("Remote ID: " + call.body);
 
             //Setting remote video stream to remote video div
@@ -440,7 +441,7 @@ function Index() {
         "/app/call-request",
         {},
         JSON.stringify({
-          callTo: remoteIdInp,
+          callTo: patientId,
           callFrom: localIdInp,
         })
       );
