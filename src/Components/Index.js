@@ -16,8 +16,8 @@ function Index() {
 
   const localVideo = useRef();
   const remoteVideo = useRef();
-  const localIdInp = useRef();
-  const remoteIdInp = useRef();
+  const localIdInp = doctorId;
+  const remoteIdInp = patientId;
 
   const [videoEnabled, setVideoEnabled] = useState(true);
   const [audioEnabled, setAudioEnabled] = useState(true);
@@ -638,14 +638,14 @@ function Index() {
       {!callInitiated && (
         <div className="d-flex justify-content-center mt-5">
           <div>
-            <input
+            {/* <input
               type="text"
               name="localId"
               id="localId"
               ref={localIdInp}
               placeholder="Enter Your ID"
               className="h-50 border-dark"
-            ></input>
+            ></input> */}
             <button
               id="connectBtn"
               className="btn btn-primary m-3"
@@ -655,14 +655,14 @@ function Index() {
             </button>
           </div>
           <div>
-            <input
+            {/* <input
               type="text"
               name="remoteId"
               id="remoteId"
               ref={remoteIdInp}
               placeholder="Enter Remote ID"
               className="h-50 border-dark"
-            ></input>
+            ></input> */}
             <button
               id="callBtn"
               className="btn btn-success m-3"
