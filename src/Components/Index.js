@@ -112,7 +112,7 @@ function Index() {
     //var socket = new WebSocket('ws://localhost:8080/websocket');
     stompClient = Stomp.over(socket);
 
-    localID = localIdInp.current.value;
+    localID = localIdInp;
     console.log("My ID: " + localID);
     console.log("Step - 1");
 
@@ -132,7 +132,7 @@ function Index() {
 
         // Subscribe to call requests
         stompClient.subscribe(
-          "/user/" + localIdInp.current.value + "/topic/call-request",
+          "/user/" + localIdInp+ "/topic/call-request",
           (callRequest) => {
             const caller = JSON.parse(callRequest.body);
             const acceptCall = window.confirm(
@@ -145,7 +145,7 @@ function Index() {
                 "/app/call",
                 {},
                 JSON.stringify({
-                  callTo: localIdInp.current.value,
+                  callTo: localIdInp,
                   callFrom: caller,
                 })
               );
@@ -154,13 +154,13 @@ function Index() {
         );
 
         stompClient.subscribe(
-          "/user/" + localIdInp.current.value + "/topic/call",
+          "/user/" + localIdInp+ "/topic/call",
           (call) => {
             console.log("Step - 2");
             console.log("Call From: " + call.body);
             console.log("Step - 3");
             remoteID = call.body;
-            remoteIdInp.current.value = remoteID;
+            remoteIdInp = remoteID;
             console.log("Remote ID: " + call.body);
 
             //Setting remote video stream to remote video div
@@ -257,7 +257,7 @@ function Index() {
 
         //Receiving offers
         stompClient.subscribe(
-          "/user/" + localIdInp.current.value + "/topic/offer",
+          "/user/" + localIdInp + "/topic/offer",
           async (offer) => {
             try {
               console.log("Step - 7");
@@ -348,7 +348,7 @@ function Index() {
         //Receiving Answers
 
         stompClient.subscribe(
-          "/user/" + localIdInp.current.value + "/topic/answer",
+          "/user/" + localIdInp + "/topic/answer",
           async (answer) => {
             console.log("Answer Came");
             try {
@@ -369,7 +369,7 @@ function Index() {
         //Receiving the candidate information
 
         stompClient.subscribe(
-          "/user/" + localIdInp.current.value + "/topic/candidate",
+          "/user/" + localIdInp + "/topic/candidate",
           (candidate) => {
             console.log("Candidate Came");
             console.log("Inside /Candidate");
@@ -400,7 +400,7 @@ function Index() {
         });
 
         console.log("Step - 3");
-        stompClient.send("/app/addUser", {}, localIdInp.current.value);
+        stompClient.send("/app/addUser", {}, localIdInp);
 
         //Frame Ends here
       },
@@ -435,13 +435,13 @@ function Index() {
 
   function handleCall() {
     if (stompClient) {
-      remoteID = remoteIdInp.current.value;
+      remoteID = remoteIdInp;
       stompClient.send(
         "/app/call-request",
         {},
         JSON.stringify({
-          callTo: remoteIdInp.current.value,
-          callFrom: localIdInp.current.value,
+          callTo: remoteIdInp,
+          callFrom: localIdInp,
         })
       );
       //stompClient.send("/app/call", {}, JSON.stringify({"callTo": remoteIdInp.current.value, "callFrom": localIdInp.current.value}))
